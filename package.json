@@ -1,0 +1,18 @@
+{
+  "name": "probot-duplicate-detector",
+  "version": "1.0.0",
+  "description": "Automatic duplicate detection for GitHub Issues",
+  "author": "Samuel Attard",
+  "private": true,
+  "scripts": {
+    "start": "probot run ./index.js --private-key=key.pem"
+  },
+  "dependencies": {
+    "fuse.js": "^2.6.2",
+    "probot": "~0.2.0"
+  },
+  "engines": {
+    "node": ">= 7.7.0",
+    "npm": ">= 4.0.0"
+  }
+}
