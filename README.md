@@ -1,6 +1,7 @@
-# {{ name }}
+# Probot Issue Duplicate Detection
 
-> a GitHub Integration built with [probot](https://github.com/probot/probot) that {{ description }}
+> a GitHub Integration built with [probot](https://github.com/probot/probot) that automatically
+detects duplicate issues so you don't have to.
 
 ## Setup
 

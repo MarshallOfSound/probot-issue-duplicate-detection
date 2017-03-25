@@ -1,0 +1,4 @@
+!prod.pem
+!*.js
+!*.lock
+node_modules

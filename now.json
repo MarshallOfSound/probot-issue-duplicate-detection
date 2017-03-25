@@ -1,0 +1,9 @@
+{
+    "alias": [
+        "duplicate.probot.samuelattard.us"
+    ],
+    "files": [
+        "./prod.pem",
+        "./index.js"
+    ]
+}
