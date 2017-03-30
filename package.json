@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Automatic duplicate detection for GitHub Issues",
   "author": "Samuel Attard",
-  "private": true,
+  "license": "ISC",
+  "repository": "MarshallOfSound/probot-issue-duplicate-detection",
   "scripts": {
     "deploy": "now --alias=duplicate.probot.samuelattard.us",
     "start": "probot run ./index.js --private-key=key.pem",
