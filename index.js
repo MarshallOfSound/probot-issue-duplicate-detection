@@ -1,6 +1,6 @@
 const Fuze = require('fuse.js');
 
-module.exports = (robot) => {
+module.exports = robot => {
   robot.on('issues.opened', async (event, context) => {
     const github = await robot.auth(event.payload.installation.id);
 
@@ -8,7 +8,7 @@ module.exports = (robot) => {
     const allIssues = await github.issues.getForRepo(context.repo());
     const otherIssues = allIssues.filter(issue => issue.number !== context.issue().number);
     const theIssue = allIssues.find(issue => issue.number === context.issue().number);
-    
+
     const fuse = new Fuze(otherIssues, {
       shouldSort: true,
       threshold: 0.2,
@@ -22,12 +22,12 @@ module.exports = (robot) => {
     });
 
     const results = fuse.search(theIssue.title);
-    if (results.length) {
-      const commentBody = 
+    if (results.length > 0) {
+      const commentBody =
 `Hey There,
-We did a quick check and this issue looks very darn similar to 
+We did a quick check and this issue looks very darn similar to
 ${results.slice(0, 3).map(
-  (issue, index) => `* [#${issue.number} - ${issue.title}](${issue.number})`
+  issue => `* [#${issue.number} - ${issue.title}](${issue.number})`
 ).join('  \n')}
 
 This could be a cooincidence, but if any of these issues solves your problem then I did a good job :smile:
@@ -35,9 +35,9 @@ This could be a cooincidence, but if any of these issues solves your problem the
 If not, the maintainers will get to this issue shortly.
 
 Cheers,
-Your Friendly Neighborhood ProBot`
+Your Friendly Neighborhood ProBot`;
 
-      await github.issues.createComment(context.issue({ body: commentBody }));
+      await github.issues.createComment(context.issue({body: commentBody}));
     }
-  })
+  });
 };
