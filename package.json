@@ -8,11 +8,16 @@
   "scripts": {
     "deploy": "now --alias=duplicate.probot.samuelattard.us",
     "start": "probot run ./index.js --private-key=key.pem",
-    "now-start": "probot run ./index.js --private-key=prod.pem --integration=1862"
+    "now-start": "probot run ./index.js --private-key=prod.pem --integration=1862",
+    "test": "xo --extend probot"
   },
   "dependencies": {
     "fuse.js": "^2.6.2",
     "probot": "~0.2.0"
+  },
+  "devDependencies": {
+    "xo": "^0.19.0",
+    "eslint-config-probot": "^0.1.0"
   },
   "engines": {
     "node": ">= 7.6.0",
