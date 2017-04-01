@@ -2,7 +2,7 @@ const fs = require('fs');
 const Fuze = require('fuse.js');
 const mustache = require('mustache');
 
-const template = fs.readFileSync('./template.md', {encoding: 'utf-8'});
+const defaultTemplate = fs.readFileSync('./template.md', {encoding: 'utf-8'});
 
 module.exports = robot => {
   robot.on('issues.opened', async (event, context) => {
@@ -26,7 +26,20 @@ module.exports = robot => {
     });
 
     const results = fuse.search(theIssue.title);
+
     if (results.length > 0) {
+      let template;
+
+      try {
+        // Try to get issue template from the repository
+        const params = context.repo({path: '.github/DUPLICATE_ISSUE_TEMPLATE.md'});
+        const data = await github.repos.getContent(params);
+        template = new Buffer(data.content, 'base64').toString();
+      } catch (err) {
+        // It doesn't have one, so let's use the default
+        template = defaultTemplate;
+      }
+
       const commentBody = mustache.render(template, {
         payload: event.payload,
         issues: otherIssues.slice(0, 3)
