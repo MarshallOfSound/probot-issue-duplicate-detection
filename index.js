@@ -5,7 +5,7 @@ module.exports = robot => {
     const github = await robot.auth(event.payload.installation.id);
 
     // Get all issues that aren't the new issue
-    const allIssues = await github.issues.getForRepo(context.repo());
+    const allIssues = await github.paginate(github.issues.getForRepo(context.repo()), issues => issues);
     const otherIssues = allIssues.filter(issue => issue.number !== context.issue().number);
     const theIssue = allIssues.find(issue => issue.number === context.issue().number);
 
