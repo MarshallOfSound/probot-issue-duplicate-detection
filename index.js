@@ -1,4 +1,8 @@
+const fs = require('fs');
 const Fuze = require('fuse.js');
+const mustache = require('mustache');
+
+const template = fs.readFileSync('./template.md', {encoding: 'utf-8'});
 
 module.exports = robot => {
   robot.on('issues.opened', async (event, context) => {
@@ -23,19 +27,10 @@ module.exports = robot => {
 
     const results = fuse.search(theIssue.title);
     if (results.length > 0) {
-      const commentBody =
-`Hey There,
-We did a quick check and this issue looks very darn similar to
-${results.slice(0, 3).map(
-  issue => `* [#${issue.number} - ${issue.title}](${issue.number})`
-).join('  \n')}
-
-This could be a cooincidence, but if any of these issues solves your problem then I did a good job :smile:
-
-If not, the maintainers will get to this issue shortly.
-
-Cheers,
-Your Friendly Neighborhood ProBot`;
+      const commentBody = mustache.render(template, {
+        payload: event.payload,
+        issues: otherIssues.slice(0, 3)
+      });
 
       await github.issues.createComment(context.issue({body: commentBody}));
     }
