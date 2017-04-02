@@ -4,6 +4,8 @@
     ],
     "files": [
         "./prod.pem",
-        "./index.js"
+        "./src/index.js",
+        "./src/search.js",
+        "./src/template.md"
     ]
 }
