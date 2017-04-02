@@ -7,14 +7,14 @@
   "repository": "MarshallOfSound/probot-issue-duplicate-detection",
   "scripts": {
     "deploy": "now --alias=duplicate.probot.samuelattard.us",
-    "start": "probot run ./index.js --private-key=key.pem",
+    "start": "probot run ./index.js",
     "now-start": "probot run ./index.js --private-key=prod.pem --integration=1862",
     "test": "xo --extend probot"
   },
   "dependencies": {
     "fuse.js": "^2.6.2",
     "mustache": "^2.3.0",
-    "probot": "~0.2.0"
+    "probot": "~0.3.0"
   },
   "devDependencies": {
     "xo": "^0.19.0",
