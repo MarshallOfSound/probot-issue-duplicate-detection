@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "fuse.js": "^2.6.2",
+    "mustache": "^2.3.0",
     "probot": "~0.3.0"
   },
   "devDependencies": {
