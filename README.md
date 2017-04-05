@@ -24,7 +24,7 @@ The template uses [mustache](https://mustache.github.io/) for rendering, and has
 - `payload`: The payload from the [issue webhook event](https://developer.github.com/v3/activity/events/types/#issuesevent).
 - `issues`: An array of duplicate [issues](https://developer.github.com/v3/issues/#list-issues-for-a-repository)
 
-```md
+```
 Hey @{{ payload.sender.login }},
 
 We did a quick check and this issue looks very darn similar to
