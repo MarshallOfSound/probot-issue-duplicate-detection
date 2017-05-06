@@ -17,29 +17,12 @@ For more information, see the [documentation for probot](https://github.com/prob
 
 ## Configuring
 
-The bot will comment with the template below by default. You can change it by creating a file in `.github/DUPLICATE_ISSUE_TEMPLATE.md` and customizing the contents.
+The bot will comment with [this template](src/template.md) by default. You can change it by creating a file in `.github/DUPLICATE_ISSUE_TEMPLATE.md` and customizing the contents.
 
 The template uses [mustache](https://mustache.github.io/) for rendering, and has two variables available:
 
 - `payload`: The payload from the [issue webhook event](https://developer.github.com/v3/activity/events/types/#issuesevent).
 - `issues`: An array of duplicate [issues](https://developer.github.com/v3/issues/#list-issues-for-a-repository)
-
-```
-Hey @{{ payload.sender.login }},
-
-We did a quick check and this issue looks very darn similar to
-
-{{#issues}}
-* [#{{ number }} - {{ title }}]({{ number }})
-{{/issues}}
-
-This could be a coincidence, but if any of these issues solves your problem then I did a good job :smile:
-
-If not, the maintainers will get to this issue shortly.
-
-Cheers,
-Your Friendly Neighborhood ProBot
-```
 
 ## Deploying to Now
 
