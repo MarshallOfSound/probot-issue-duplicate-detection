@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const debug = require('debug')('index');
 const mustache = require('mustache');
 
 const search = require('./search');
@@ -8,16 +7,19 @@ const search = require('./search');
 const defaultTemplate = fs.readFileSync(path.resolve(__dirname, 'template.md'), { encoding: 'utf-8' });
 
 module.exports = robot => {
-  robot.on('issues.opened', async (event, context) => {
-    const github = await robot.auth(event.payload.installation.id);
-    debug('issue opened');
+  robot.on('issues.opened', async context => {
+    const github = context.github;
+    context.log('issue opened');
 
     // Get all issues that aren't the new issue
-    const allIssues = await github.paginate(github.issues.getForRepo(context.repo()), issues => issues);
+    const req = github.issues.getForRepo(context.repo({state: 'all'}))
+    const allIssues = await github.paginate(req, res => res.data);
+
+    context.log(`Checking ${allIssues.length} issues`);
 
     const results = search(allIssues, context.issue().number);
 
-    debug(`found ${results.length} potential duplicates`);
+    context.log(`found ${results.length} potential duplicates`);
 
     if (results.length > 0) {
       let template;
@@ -33,7 +35,7 @@ module.exports = robot => {
       }
 
       const commentBody = mustache.render(template, {
-        payload: event.payload,
+        payload: context.payload,
         issues: results.slice(0, 3)
       });
 
