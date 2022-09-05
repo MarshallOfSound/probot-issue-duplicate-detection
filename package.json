@@ -44,10 +44,5 @@
       "test.js",
       "test/fetch-issues.js"
     ]
-  },
-  "renovate": {
-    "extends": [
-      "github>octokit/.github"
-    ]
   }
 }
